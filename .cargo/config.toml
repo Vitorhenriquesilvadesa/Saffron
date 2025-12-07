@@ -1,0 +1,5 @@
+[target.'cfg(windows)']
+rustflags = ["-C", "link-arg=-fuse-ld=lld", "-C", "target-cpu=native"]
+
+[build]
+target-dir = "T:\\cargo_target"

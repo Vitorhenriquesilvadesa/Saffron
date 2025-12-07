@@ -1,0 +1,20 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/saffron-cli",
+    "crates/saffron-core",
+    "crates/saffron-data",
+    "crates/saffron-http",
+    "crates/saffron-ui",
+    "crates/saffron-utils",
+    "saffron",
+]
+
+[profile.dev]
+opt-level = 0
+debug = 1
+
+
+[profile.dev.package."*"]
+opt-level = 3
+debug = false
