@@ -70,9 +70,10 @@ impl Storage {
                 let entry = entry?;
                 let path = entry.path();
                 if path.extension().and_then(|s| s.to_str()) == Some("json")
-                    && let Some(name) = path.file_stem().and_then(|s| s.to_str()) {
-                        collections.push(name.to_string());
-                    }
+                    && let Some(name) = path.file_stem().and_then(|s| s.to_str())
+                {
+                    collections.push(name.to_string());
+                }
             }
         }
 
