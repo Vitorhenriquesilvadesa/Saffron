@@ -4,3 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+saffron-data = { path = "../crates/saffron-data" }
+saffron-core = { path = "../crates/saffron-core" }
+saffron-http = { path = "../crates/saffron-http" }
+saffron-cli = { path = "../crates/saffron-cli" }
+clap = { version = "4.5", features = ["derive"] }
