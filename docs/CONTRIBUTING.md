@@ -33,8 +33,8 @@ If you're new to the project:
 
 1. **Read the documentation:**
    - [README.md](../README.md) - Project overview
-   - [Architecture](./architecture.md) - Technical design
-   - [Getting Started](./getting-started.md) - User guide
+   - [Architecture](architecture.md) - Technical design
+   - [Getting Started](getting-started.md) - User guide
 
 2. **Explore the codebase:**
    - Browse the `crates/` directory
