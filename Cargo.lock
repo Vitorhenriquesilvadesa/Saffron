@@ -614,17 +614,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f"
 
 [[package]]
-name = "saffron"
-version = "0.1.0"
-dependencies = [
- "clap",
- "saffron-cli",
- "saffron-core",
- "saffron-data",
- "saffron-http",
-]
-
-[[package]]
 name = "saffron-cli"
 version = "0.1.0"
 dependencies = [
@@ -664,6 +653,17 @@ dependencies = [
  "saffron-core",
  "thiserror 2.0.17",
  "ureq",
+]
+
+[[package]]
+name = "saffron-http-client"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "saffron-cli",
+ "saffron-core",
+ "saffron-data",
+ "saffron-http",
 ]
 
 [[package]]
