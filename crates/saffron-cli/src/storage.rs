@@ -83,13 +83,13 @@ impl Storage {
     pub fn load_collections(&self) -> io::Result<Vec<Collection>> {
         let names = self.list_collections()?;
         let mut collections = Vec::new();
-        
+
         for name in names {
             if let Ok(collection) = self.load_collection(&name) {
                 collections.push(collection);
             }
         }
-        
+
         Ok(collections)
     }
 

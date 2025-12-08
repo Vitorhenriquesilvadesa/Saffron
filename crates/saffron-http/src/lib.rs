@@ -102,7 +102,14 @@ impl HttpClient {
         }
 
         let response = match &request.body {
-            RequestBody::None => req.call(),
+            RequestBody::None => {
+                // For POST/PUT/PATCH requests, send empty body with Content-Length: 0
+                if matches!(request.method.as_str(), "POST" | "PUT" | "PATCH") {
+                    req.send_string("")
+                } else {
+                    req.call()
+                }
+            }
             RequestBody::Text(text) => {
                 if request.get_header("Content-Type").is_none() {
                     req = req.set("Content-Type", "text/plain; charset=utf-8");
