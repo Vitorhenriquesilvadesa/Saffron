@@ -1,6 +1,6 @@
 [package]
 name = "saffron-http-client"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 authors = ["Vitor Henrique Silva <vitorhenriquesilvadesa@gmail.com>"]
 description = "A fast, lightweight command-line HTTP client for testing and debugging APIs"
