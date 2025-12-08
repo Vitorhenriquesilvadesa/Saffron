@@ -28,8 +28,8 @@ fn test_parse_number_integer() {
 
 #[test]
 fn test_parse_number_float() {
-    let result = Json::parse("3.14159").unwrap();
-    assert_eq!(result.root, JsonElement::Number(3.14159));
+    let result = Json::parse("42.195").unwrap();
+    assert_eq!(result.root, JsonElement::Number(42.195));
 }
 
 #[test]

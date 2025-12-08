@@ -10,6 +10,7 @@ use saffron_http::{HttpClient, HttpClientConfig};
 use std::collections::HashMap;
 use std::time::Instant;
 
+#[allow(clippy::too_many_arguments)]
 pub fn handle_send(
     url: String,
     method: String,

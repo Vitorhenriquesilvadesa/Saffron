@@ -44,7 +44,7 @@ impl HistoryEntry {
 
     pub fn format_timestamp(&self) -> String {
         let datetime = chrono::DateTime::from_timestamp(self.timestamp as i64, 0)
-            .unwrap_or_else(|| chrono::DateTime::UNIX_EPOCH);
+            .unwrap_or(chrono::DateTime::UNIX_EPOCH);
         datetime.format("%Y-%m-%d %H:%M:%S").to_string()
     }
 }

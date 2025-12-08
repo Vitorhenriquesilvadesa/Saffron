@@ -40,11 +40,11 @@ pub fn print_response(response: &HttpResponse, verbose: bool) {
 
 fn format_status(code: u16) -> String {
     let status_str = code.to_string();
-    if code >= 200 && code < 300 {
+    if (200..300).contains(&code) {
         status_str.green().to_string()
-    } else if code >= 300 && code < 400 {
+    } else if (300..400).contains(&code) {
         status_str.yellow().to_string()
-    } else if code >= 400 && code < 500 {
+    } else if (400..500).contains(&code) {
         status_str.red().to_string()
     } else if code >= 500 {
         status_str.bright_red().to_string()

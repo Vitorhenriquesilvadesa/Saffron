@@ -78,8 +78,10 @@ impl HttpClient {
     }
 
     pub fn with_timeout(timeout_secs: u64) -> Self {
-        let mut config = HttpClientConfig::default();
-        config.timeout_seconds = timeout_secs;
+        let config = HttpClientConfig {
+            timeout_seconds: timeout_secs,
+            ..Default::default()
+        };
         Self::with_config(config)
     }
 
@@ -342,7 +344,7 @@ pub mod helpers {
         let client = HttpClient::new();
         let response = client.get(url)?;
 
-        std::fs::write(path, response.body).map_err(|e| HttpError::IoError(e))?;
+        std::fs::write(path, response.body).map_err(HttpError::IoError)?;
 
         Ok(())
     }

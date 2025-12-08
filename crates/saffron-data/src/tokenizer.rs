@@ -81,26 +81,6 @@ impl Tokenizer {
         }
     }
 
-    pub fn without_source() -> Self {
-        Tokenizer {
-            source: Vec::new(),
-            column: 1,
-            length: 0,
-            line: 1,
-            start: 0,
-            tokens: Vec::new(),
-        }
-    }
-
-    pub fn reset_internal_state(&mut self, source: String) {
-        self.source = source.chars().collect();
-        self.column = 1;
-        self.length = 0;
-        self.start = 0;
-        self.line = 1;
-        self.tokens = Vec::new();
-    }
-
     pub fn scan_tokens(&mut self) -> Result<TokenStream, ParseError> {
         while !self.is_at_end() {
             self.scan_token()?;
@@ -289,19 +269,6 @@ impl Tokenizer {
         self.length += 1;
         self.column += 1;
         c
-    }
-
-    fn try_eat(&mut self, c: char) -> bool {
-        if self.is_at_end() {
-            return false;
-        }
-
-        if !self.check(c) {
-            return false;
-        }
-
-        self.advance();
-        true
     }
 
     fn check(&self, c: char) -> bool {
