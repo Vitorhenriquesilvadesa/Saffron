@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["FormDataContent","HttpMethod","RequestBody"],"struct":["FormDataPart","HttpHeader","HttpRequest"]};

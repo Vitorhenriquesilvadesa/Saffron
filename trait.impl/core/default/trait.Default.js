@@ -1,0 +1,9 @@
+(function() {
+    var implementors = Object.fromEntries([["saffron_cli",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.91.1/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"saffron_cli/storage/struct.Storage.html\" title=\"struct saffron_cli::storage::Storage\">Storage</a>"]]],["saffron_core",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.91.1/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"saffron_core/domain/environment/struct.EnvironmentSet.html\" title=\"struct saffron_core::domain::environment::EnvironmentSet\">EnvironmentSet</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.91.1/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"saffron_core/domain/request/struct.HttpRequest.html\" title=\"struct saffron_core::domain::request::HttpRequest\">HttpRequest</a>"]]],["saffron_http",[["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.91.1/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"saffron_http/struct.HttpClient.html\" title=\"struct saffron_http::HttpClient\">HttpClient</a>"],["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/1.91.1/core/default/trait.Default.html\" title=\"trait core::default::Default\">Default</a> for <a class=\"struct\" href=\"saffron_http/struct.HttpClientConfig.html\" title=\"struct saffron_http::HttpClientConfig\">HttpClientConfig</a>"]]]]);
+    if (window.register_implementors) {
+        window.register_implementors(implementors);
+    } else {
+        window.pending_implementors = implementors;
+    }
+})()
+//{"start":57,"fragment_lengths":[302,664,595]}

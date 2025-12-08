@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["CollectionAction","Commands","EnvAction","HistoryAction"],"struct":["Cli"]};

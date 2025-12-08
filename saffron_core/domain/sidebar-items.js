@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["collection","environment","request","request_body","response"]};

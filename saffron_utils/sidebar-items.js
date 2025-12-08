@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["read_file_whitout_bom"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["handle_collection","handle_env","handle_history","handle_send"]};
