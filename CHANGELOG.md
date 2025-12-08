@@ -15,6 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Proxy support
 - GUI implementation
 
+## [0.1.3] - 2025-12-08
+
+### Fixed
+- Fixed HTTP 411 error when sending POST/PUT/PATCH requests without body
+- Now correctly sends `Content-Length: 0` header for empty body requests
+- GET/DELETE/HEAD/OPTIONS requests remain unchanged
+
 ## [0.1.2] - 2025-12-08
 
 ### Added

@@ -1,6 +1,6 @@
 [package]
 name = "saffron-cli"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 authors = ["Vitor Henrique Silva <vitorhenriquesilvadesa@gmail.com>"]
 description = "CLI interface for Saffron HTTP client"
@@ -11,7 +11,7 @@ categories = ["command-line-utilities"]
 
 [dependencies]
 saffron-core = { version = "0.1.0", path = "../saffron-core" }
-saffron-http = { version = "0.1.0", path = "../saffron-http" }
+saffron-http = { version = "0.1.1", path = "../saffron-http" }
 saffron-data = { version = "0.1.0", path = "../saffron-data" }
 clap = { version = "4.5", features = ["derive"] }
 colored = "2.1"
