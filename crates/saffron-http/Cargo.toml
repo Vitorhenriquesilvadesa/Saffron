@@ -2,7 +2,7 @@
 name = "saffron-http"
 version = "0.1.0"
 edition = "2024"
-authors = ["Vitor Henrique Silva <your.email@example.com>"]
+authors = ["Vitor Henrique Silva <vitorhenriquesilvadesa@gmail.com>"]
 description = "HTTP client implementation for Saffron"
 repository = "https://github.com/Vitorhenriquesilvadesa/Saffron"
 license = "MIT"
