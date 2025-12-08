@@ -27,11 +27,7 @@ pub struct HistoryResponse {
 }
 
 impl HistoryEntry {
-    pub fn new(
-        request: HistoryRequest,
-        response: HistoryResponse,
-        duration_ms: u64,
-    ) -> Self {
+    pub fn new(request: HistoryRequest, response: HistoryResponse, duration_ms: u64) -> Self {
         let timestamp = SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)
             .unwrap()
@@ -68,7 +64,11 @@ impl HistoryResponse {
         Self {
             status: response.status,
             status_text: response.status_text.clone(),
-            headers: response.headers.iter().map(|(k, v)| (k.clone(), v.clone())).collect(),
+            headers: response
+                .headers
+                .iter()
+                .map(|(k, v)| (k.clone(), v.clone()))
+                .collect(),
             body_preview,
         }
     }

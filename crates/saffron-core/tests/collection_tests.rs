@@ -12,8 +12,8 @@ fn test_collection_new() {
 
 #[test]
 fn test_collection_with_description() {
-    let collection = Collection::new("API Tests")
-        .with_description("Collection for testing REST APIs");
+    let collection =
+        Collection::new("API Tests").with_description("Collection for testing REST APIs");
 
     assert_eq!(collection.name, "API Tests");
     assert_eq!(
@@ -159,8 +159,8 @@ fn test_saved_request_new() {
 #[test]
 fn test_saved_request_with_description() {
     let request = HttpRequest::get("https://example.com");
-    let saved = SavedRequest::new("req1", "Test", &request)
-        .with_description("This is a test request");
+    let saved =
+        SavedRequest::new("req1", "Test", &request).with_description("This is a test request");
 
     assert_eq!(
         saved.description,
@@ -195,8 +195,8 @@ fn test_serializable_request_from_get() {
 
 #[test]
 fn test_serializable_request_from_post_with_json() {
-    let request = HttpRequest::post("https://example.com/api")
-        .with_json_body(r#"{"key": "value"}"#);
+    let request =
+        HttpRequest::post("https://example.com/api").with_json_body(r#"{"key": "value"}"#);
 
     let saved = SavedRequest::new("test", "Test", &request);
 
@@ -206,8 +206,7 @@ fn test_serializable_request_from_post_with_json() {
 
 #[test]
 fn test_serializable_request_from_post_with_text() {
-    let request = HttpRequest::post("https://example.com/api")
-        .with_text_body("plain text");
+    let request = HttpRequest::post("https://example.com/api").with_text_body("plain text");
 
     let saved = SavedRequest::new("test", "Test", &request);
 
@@ -223,14 +222,18 @@ fn test_serializable_request_with_headers() {
     let saved = SavedRequest::new("test", "Test", &request);
 
     assert_eq!(saved.request.headers.len(), 2);
-    assert!(saved
-        .request
-        .headers
-        .contains(&("Authorization".to_string(), "Bearer token".to_string())));
-    assert!(saved
-        .request
-        .headers
-        .contains(&("Accept".to_string(), "application/json".to_string())));
+    assert!(
+        saved
+            .request
+            .headers
+            .contains(&("Authorization".to_string(), "Bearer token".to_string()))
+    );
+    assert!(
+        saved
+            .request
+            .headers
+            .contains(&("Accept".to_string(), "application/json".to_string()))
+    );
 }
 
 #[test]
