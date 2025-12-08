@@ -14,6 +14,10 @@ categories = [
     "development-tools",
 ]
 
+[[bin]]
+name = "saffron"
+path = "src/main.rs"
+
 [dependencies]
 saffron-data = { version = "0.1.0", path = "../crates/saffron-data" }
 saffron-core = { version = "0.1.0", path = "../crates/saffron-core" }
