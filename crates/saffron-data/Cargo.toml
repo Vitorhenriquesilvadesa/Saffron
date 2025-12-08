@@ -2,6 +2,12 @@
 name = "saffron-data"
 version = "0.1.0"
 edition = "2024"
+authors = ["Vitor Henrique Silva <your.email@example.com>"]
+description = "Custom JSON parser for Saffron HTTP client"
+repository = "https://github.com/Vitorhenriquesilvadesa/Saffron"
+license = "MIT"
+keywords = ["json", "parser", "data"]
+categories = ["parser-implementations", "encoding"]
 
 [dependencies]
 saffron-utils = { path = "../saffron-utils" }

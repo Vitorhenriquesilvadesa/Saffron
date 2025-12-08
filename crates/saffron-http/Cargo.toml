@@ -2,6 +2,12 @@
 name = "saffron-http"
 version = "0.1.0"
 edition = "2024"
+authors = ["Vitor Henrique Silva <your.email@example.com>"]
+description = "HTTP client implementation for Saffron"
+repository = "https://github.com/Vitorhenriquesilvadesa/Saffron"
+license = "MIT"
+keywords = ["http", "client", "ureq"]
+categories = ["network-programming"]
 
 [dependencies]
 saffron-core = { path = "../saffron-core" }

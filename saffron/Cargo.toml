@@ -2,6 +2,17 @@
 name = "saffron"
 version = "0.1.0"
 edition = "2024"
+authors = ["Vitor Henrique Silva <your.email@example.com>"]
+description = "A fast, lightweight command-line HTTP client for testing and debugging APIs"
+readme = "../README.md"
+repository = "https://github.com/Vitorhenriquesilvadesa/Saffron"
+license = "MIT"
+keywords = ["http", "cli", "api", "rest", "client"]
+categories = [
+    "command-line-utilities",
+    "network-programming",
+    "development-tools",
+]
 
 [dependencies]
 saffron-data = { path = "../crates/saffron-data" }
