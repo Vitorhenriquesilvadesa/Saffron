@@ -10,4 +10,4 @@ keywords = ["json", "parser", "data"]
 categories = ["parser-implementations", "encoding"]
 
 [dependencies]
-saffron-utils = { path = "../saffron-utils" }
+saffron-utils = { version = "0.1.0", path = "../saffron-utils" }

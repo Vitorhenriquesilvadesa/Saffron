@@ -10,6 +10,6 @@ keywords = ["http", "domain", "models"]
 categories = ["network-programming"]
 
 [dependencies]
-saffron-data = { path = "../saffron-data" }
+saffron-data = { version = "0.1.0", path = "../saffron-data" }
 serde = { version = "1.0", features = ["derive"] }
 thiserror = "2.0"

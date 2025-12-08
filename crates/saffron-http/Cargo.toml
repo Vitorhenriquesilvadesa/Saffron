@@ -10,7 +10,7 @@ keywords = ["http", "client", "ureq"]
 categories = ["network-programming"]
 
 [dependencies]
-saffron-core = { path = "../saffron-core" }
+saffron-core = { version = "0.1.0", path = "../saffron-core" }
 ureq = { version = "2.10", features = ["json"] }
 thiserror = "2.0"
 chrono = "0.4"
