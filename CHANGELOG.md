@@ -15,6 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Proxy support
 - GUI implementation
 
+## [0.1.4] - 2025-12-08
+
+### Fixed
+- Fixed version display to show correct version (0.1.3 -> 0.1.4)
+- Version now correctly shows "saffron 0.1.4" instead of "saffron 0.1.2"
+
 ## [0.1.3] - 2025-12-08
 
 ### Fixed
