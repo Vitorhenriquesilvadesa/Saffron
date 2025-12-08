@@ -12,7 +12,7 @@ use std::time::Instant;
 
 #[allow(clippy::too_many_arguments)]
 pub fn handle_send(
-    url: String,
+    url: Option<String>,
     method: String,
     headers: Vec<(String, String)>,
     body: Option<String>,
@@ -22,6 +22,7 @@ pub fn handle_send(
     follow_redirects: bool,
     env: Option<String>,
     verbose: bool,
+    from_collection: Option<String>,
 ) {
     let storage = match Storage::new() {
         Ok(s) => s,
@@ -31,19 +32,78 @@ pub fn handle_send(
         }
     };
 
+    // Load request from collection if specified
+    let (final_url, final_method, final_headers, final_body, final_json) =
+        if let Some(ref collection_path) = from_collection {
+            let parts: Vec<&str> = collection_path.split('/').collect();
+            if parts.len() != 2 {
+                print_error("Invalid format. Use: collection_name/request_name");
+                return;
+            }
+
+            let collection_name = parts[0];
+            let request_name = parts[1];
+
+            let collections = storage.load_collections().unwrap_or_default();
+            let collection = collections.iter().find(|c| c.name == collection_name);
+
+            if collection.is_none() {
+                print_error(&format!("Collection '{}' not found", collection_name));
+                return;
+            }
+
+            let saved_request = collection
+                .unwrap()
+                .requests
+                .iter()
+                .find(|r| r.name == request_name);
+
+            if saved_request.is_none() {
+                print_error(&format!(
+                    "Request '{}' not found in collection '{}'",
+                    request_name, collection_name
+                ));
+                return;
+            }
+
+            let req = saved_request.unwrap();
+            let loaded_url = req.request.url.clone();
+            let loaded_method = req.request.method.clone();
+            let loaded_headers = req.request.headers.clone();
+            let loaded_body = req.request.body.clone();
+
+            // CLI args override collection values
+            let use_url = url.unwrap_or(loaded_url);
+            let use_headers = if headers.is_empty() {
+                loaded_headers
+            } else {
+                headers
+            };
+            let use_body = body.or(loaded_body.clone());
+            let use_json = json.or(loaded_body);
+
+            (use_url, loaded_method, use_headers, use_body, use_json)
+        } else {
+            if url.is_none() {
+                print_error("URL is required when not using --from-collection");
+                return;
+            }
+            (url.unwrap(), method, headers, body, json)
+        };
+
     let env_set = storage.load_environment_set().unwrap_or_default();
     let resolved_url = if let Some(ref env_name) = env {
         if let Some(environment) = env_set.get(env_name) {
-            environment.resolve_template(&url)
+            environment.resolve_template(&final_url)
         } else {
             print_error(&format!("Environment '{}' not found", env_name));
             return;
         }
     } else {
-        url
+        final_url.clone()
     };
 
-    let http_method = match method.to_uppercase().as_str() {
+    let http_method = match final_method.to_uppercase().as_str() {
         "GET" => HttpMethod::Get,
         "POST" => HttpMethod::Post,
         "PUT" => HttpMethod::Put,
@@ -52,60 +112,60 @@ pub fn handle_send(
         "HEAD" => HttpMethod::Head,
         "OPTIONS" => HttpMethod::Options,
         _ => {
-            print_error(&format!("Invalid HTTP method: {}", method));
+            print_error(&format!("Invalid HTTP method: {}", final_method));
             return;
         }
     };
 
     let mut request = HttpRequest::new(http_method, &resolved_url);
 
-    for (key, value) in headers {
+    for (key, value) in final_headers {
         let resolved_key = if let Some(ref env_name) = env {
             if let Some(environment) = env_set.get(env_name) {
                 environment.resolve_template(&key)
             } else {
-                key
+                key.clone()
             }
         } else {
-            key
+            key.clone()
         };
 
         let resolved_value = if let Some(ref env_name) = env {
             if let Some(environment) = env_set.get(env_name) {
                 environment.resolve_template(&value)
             } else {
-                value
+                value.clone()
             }
         } else {
-            value
+            value.clone()
         };
 
         request = request.with_header(&resolved_key, &resolved_value);
     }
 
-    if let Some(json_body) = json {
+    if let Some(json_body) = final_json {
         let resolved_body = if let Some(ref env_name) = env {
             if let Some(environment) = env_set.get(env_name) {
                 environment.resolve_template(&json_body)
             } else {
-                json_body
+                json_body.clone()
             }
         } else {
-            json_body
+            json_body.clone()
         };
         request = request.with_json_body(&resolved_body);
     } else if !data.is_empty() {
         let form_data: HashMap<String, String> = data.into_iter().collect();
         request = request.with_body(RequestBody::FormUrlEncoded(form_data));
-    } else if let Some(text_body) = body {
+    } else if let Some(text_body) = final_body {
         let resolved_body = if let Some(ref env_name) = env {
             if let Some(environment) = env_set.get(env_name) {
                 environment.resolve_template(&text_body)
             } else {
-                text_body
+                text_body.clone()
             }
         } else {
-            text_body
+            text_body.clone()
         };
         request = request.with_text_body(&resolved_body);
     }

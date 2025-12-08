@@ -13,8 +13,8 @@ pub struct Cli {
 pub enum Commands {
     #[command(about = "Send an HTTP request")]
     Send {
-        #[arg(help = "The URL to send the request to")]
-        url: String,
+        #[arg(help = "The URL to send the request to (optional if using --from-collection)")]
+        url: Option<String>,
 
         #[arg(short, long, default_value = "GET", help = "HTTP method")]
         method: String,
@@ -42,6 +42,13 @@ pub enum Commands {
 
         #[arg(short = 'v', long, help = "Verbose output (show headers)")]
         verbose: bool,
+
+        #[arg(
+            short = 'f',
+            long = "from-collection",
+            help = "Load request from collection (format: collection_name/request_name)"
+        )]
+        from_collection: Option<String>,
     },
 
     #[command(about = "Manage collections")]

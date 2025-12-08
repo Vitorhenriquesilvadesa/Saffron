@@ -227,6 +227,27 @@ saffron collection add "User API" "Delete User" \
 
 # 3. View collection
 saffron collection show "User API"
+
+# 4. Run requests from collection
+saffron send --from-collection "User API/List Users"
+saffron send --from-collection "User API/Get User" -e development
+```
+
+### Running Saved Requests
+
+```bash
+# Run request as saved
+saffron send --from-collection "User API/List Users"
+
+# Run with environment variables
+saffron send --from-collection "User API/Get User" -e production
+
+# Override saved URL
+saffron send https://api-v2.example.com/users \
+  --from-collection "User API/List Users"
+
+# Add verbose output
+saffron send --from-collection "Auth API/Login" -v
 ```
 
 ### Organizing Collections

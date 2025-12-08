@@ -17,6 +17,7 @@ fn main() {
             follow_redirects,
             env,
             verbose,
+            from_collection,
         } => {
             handle_send(
                 url,
@@ -29,6 +30,7 @@ fn main() {
                 follow_redirects,
                 env,
                 verbose,
+                from_collection,
             );
         }
         Commands::Collection { action } => {

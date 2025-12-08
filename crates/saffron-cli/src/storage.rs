@@ -80,6 +80,19 @@ impl Storage {
         Ok(collections)
     }
 
+    pub fn load_collections(&self) -> io::Result<Vec<Collection>> {
+        let names = self.list_collections()?;
+        let mut collections = Vec::new();
+        
+        for name in names {
+            if let Ok(collection) = self.load_collection(&name) {
+                collections.push(collection);
+            }
+        }
+        
+        Ok(collections)
+    }
+
     pub fn delete_collection(&self, name: &str) -> io::Result<()> {
         let file_name = format!("{}.json", sanitize_filename(name));
         let path = self.collections_dir().join(file_name);

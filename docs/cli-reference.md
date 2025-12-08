@@ -31,7 +31,7 @@ saffron send <URL> [OPTIONS]
 
 ### Arguments
 
-- `<URL>` - The URL to send the request to (supports `{{variables}}`)
+- `<URL>` - The URL to send the request to (supports `{{variables}}`, optional if using `--from-collection`)
 
 ### Options
 
@@ -46,6 +46,7 @@ saffron send <URL> [OPTIONS]
 | `--follow-redirects` | `-L` | Follow redirects | `false` |
 | `--env` | `-e` | Environment name | - |
 | `--verbose` | `-v` | Show headers | `false` |
+| `--from-collection` | `-f` | Load request from collection (format: collection_name/request_name) | - |
 
 ### HTTP Methods
 
@@ -92,6 +93,23 @@ saffron send "{{base_url}}/users/{{user_id}}" \
 saffron send https://example.com/redirect \
   -L \
   -t 60
+```
+
+**Load and run request from collection:**
+```bash
+saffron send --from-collection "My API/Get Users"
+```
+
+**Load from collection and override URL:**
+```bash
+saffron send https://api.example.com/v2/users \
+  --from-collection "My API/Get Users"
+```
+
+**Load from collection with environment:**
+```bash
+saffron send --from-collection "My API/Get Users" \
+  -e production
 ```
 
 ---
