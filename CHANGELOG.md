@@ -15,6 +15,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Proxy support
 - GUI implementation
 
+## [0.1.2] - 2025-12-08
+
+### Added
+- `--from-collection` flag to run saved requests directly from collections
+- Format: `saffron send --from-collection "collection_name/request_name"`
+- CLI arguments override collection values when specified
+- Support for combining collection requests with environments
+
+### Changed
+- Improved collection workflow with direct request execution
+- Updated documentation with `--from-collection` examples
+
+## [0.1.1] - 2025-12-08
+
+### Changed
+- Binary name simplified from `saffron-http-client` to `saffron`
+- Users can now run `saffron` command directly after installation
+
 ## [0.1.0] - 2025-12-08
 
 ### Added
