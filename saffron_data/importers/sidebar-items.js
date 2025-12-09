@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ImportError"],"fn":["auto_import"],"mod":["insomnia"],"struct":["ImportedCollection","ImportedRequest"],"trait":["ImportFormat"],"type":["ImportResult"]};

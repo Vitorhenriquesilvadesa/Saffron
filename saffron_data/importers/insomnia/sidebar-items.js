@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["InsomniaResourceType"],"struct":["InsomniaExport","InsomniaImporter","InsomniaResource"]};
