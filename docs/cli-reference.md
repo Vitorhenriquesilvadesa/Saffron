@@ -216,16 +216,31 @@ saffron collection export "My API" my-api.json
 
 ### collection import
 
-Import a collection from a JSON file.
+Import collections from external tools or Saffron export files. Supports automatic format detection.
 
 ```bash
 saffron collection import <INPUT_FILE>
 ```
 
+**Supported Formats:**
+- Insomnia v4 export files
+- Saffron native JSON format
+
+The tool automatically detects the format and converts collections accordingly.
+
 **Example:**
 ```bash
+# Import from Insomnia
+saffron collection import insomnia-export.json
+
+# Import from Saffron export
 saffron collection import my-api.json
 ```
+
+**Note:** When importing from Insomnia:
+- Workspaces become collections
+- Request groups are currently flattened (nested requests appear at collection level)
+- Environments are not yet imported (coming in future version)
 
 ---
 

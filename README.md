@@ -11,6 +11,7 @@
 
 - **🚀 Fast & Lightweight:** Single binary, minimal dependencies, <5MB
 - **📦 Collections:** Organize requests into reusable collections
+- **🔄 Import from External Tools:** Import collections from Insomnia (Postman coming soon)
 - **🌍 Environments:** Manage variables across dev/staging/production
 - **📜 Request History:** Automatic tracking with 100-entry rolling cache
 - **🔧 Template Variables:** Use `{{variables}}` in URLs, headers, and body
@@ -84,8 +85,14 @@ saffron collection add github-api get-user `
   --method GET `
   --url https://api.github.com/users/octocat
 
-# Run request
-saffron collection run github-api get-user
+# Run request from collection
+saffron send --from-collection "github-api/get-user"
+
+# Import from Insomnia
+saffron collection import insomnia-export.json
+
+# List all collections
+saffron collection list
 ```
 
 ### Environments

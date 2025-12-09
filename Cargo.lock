@@ -615,7 +615,7 @@ checksum = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f"
 
 [[package]]
 name = "saffron-cli"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "chrono",
  "clap",
@@ -640,9 +640,10 @@ dependencies = [
 
 [[package]]
 name = "saffron-data"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "saffron-utils",
+ "thiserror 2.0.17",
 ]
 
 [[package]]
@@ -657,7 +658,7 @@ dependencies = [
 
 [[package]]
 name = "saffron-http-client"
-version = "0.1.4"
+version = "0.1.5"
 dependencies = [
  "clap",
  "saffron-cli",

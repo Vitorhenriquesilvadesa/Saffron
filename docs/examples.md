@@ -9,6 +9,7 @@ Real-world examples showing how to use Saffron effectively.
 - [Working with REST APIs](#working-with-rest-apis)
 - [Environment Management](#environment-management)
 - [Collections Workflow](#collections-workflow)
+- [Importing Collections](#importing-collections)
 - [Advanced Scenarios](#advanced-scenarios)
 
 ## Basic Requests
@@ -248,6 +249,131 @@ saffron send https://api-v2.example.com/users \
 
 # Add verbose output
 saffron send --from-collection "Auth API/Login" -v
+```
+
+---
+
+## Importing Collections
+
+### Import from Insomnia
+
+Migrate your existing Insomnia collections to Saffron:
+
+```bash
+# 1. Export from Insomnia
+# In Insomnia: Application Menu → Import/Export → Export Data
+# Select "Export" and choose your workspace(s)
+# Save as insomnia-export.json
+
+# 2. Import to Saffron
+saffron collection import insomnia-export.json
+
+# 3. Verify import
+saffron collection list
+saffron collection show "Your Workspace Name"
+
+# 4. Run imported requests
+saffron send --from-collection "Your Workspace Name/Request Name"
+```
+
+### Real-World Insomnia Import Example
+
+```bash
+# Example: Importing a REST API collection from Insomnia
+# The export contains a workspace with multiple requests
+
+# Import file
+saffron collection import my-api-export.json
+
+# Output:
+# ✓ Imported collection 'My REST API'
+# 1 collection(s) imported successfully
+
+# View what was imported
+saffron collection show "My REST API"
+
+# Output:
+# Collection: My REST API
+# Description: Production API endpoints
+#
+# Requests:
+#   • Get Users - https://api.example.com/users
+#   • Create User - https://api.example.com/users
+#   • Update User - https://api.example.com/users/{{id}}
+#   • Delete User - https://api.example.com/users/{{id}}
+
+# Run imported requests
+saffron send --from-collection "My REST API/Get Users"
+saffron send --from-collection "My REST API/Create User" -e production
+```
+
+### Batch Import Multiple Collections
+
+```bash
+# Import multiple Insomnia exports at once
+saffron collection import team-apis-export.json
+
+# The tool will import all workspaces found in the file
+# Each workspace becomes a separate collection
+
+# Output:
+# ✓ Imported collection 'Auth API'
+# ✓ Imported collection 'User API'
+# ✓ Imported collection 'Payment API'
+# 3 collection(s) imported successfully
+```
+
+### Import Workflow Best Practices
+
+```bash
+# 1. Backup existing collections first
+saffron collection list > my-collections.txt
+saffron collection export "Important API" backup.json
+
+# 2. Import new collections
+saffron collection import insomnia-export.json
+
+# 3. Verify imported data
+saffron collection list
+saffron collection show "Imported Collection"
+
+# 4. Test imported requests
+saffron send --from-collection "Imported Collection/Health Check" -v
+
+# 5. Set up environments for imported collections
+saffron env set imported-dev base_url https://api-dev.example.com
+saffron send --from-collection "Imported Collection/Get Data" -e imported-dev
+```
+
+### Supported Import Formats
+
+**Currently Supported:**
+- ✅ Insomnia v4 format
+- ✅ Saffron native JSON format
+
+**Coming Soon:**
+- 🔜 Postman Collection v2.1
+- 🔜 Thunder Client collections
+- 🔜 OpenAPI/Swagger specs
+
+### Import Limitations
+
+When importing from Insomnia:
+
+1. **Request Groups**: Nested folders are flattened (all requests appear at collection level)
+2. **Environments**: Insomnia environments are not imported (create manually with `saffron env set`)
+3. **Authentication**: Pre-configured auth (Bearer, Basic, etc.) is not preserved
+4. **Variables**: Insomnia variables need to be recreated in Saffron environments
+
+```bash
+# Example: Setting up environments after import
+# If your Insomnia collection used {{base_url}} variable:
+
+saffron env set development base_url https://api-dev.example.com
+saffron env set production base_url https://api.example.com
+
+# Now use with imported requests
+saffron send --from-collection "Imported API/Endpoint" -e development
 ```
 
 ### Organizing Collections

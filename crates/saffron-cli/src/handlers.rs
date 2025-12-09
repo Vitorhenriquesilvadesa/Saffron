@@ -6,6 +6,7 @@ use colored::Colorize;
 use saffron_core::domain::collection::{Collection, SavedRequest, SerializableRequest};
 use saffron_core::domain::environment::Environment;
 use saffron_core::domain::request::{HttpMethod, HttpRequest, RequestBody};
+use saffron_data::importers::{ImportedCollection, auto_import};
 use saffron_http::{HttpClient, HttpClientConfig};
 use std::collections::HashMap;
 use std::time::Instant;
@@ -364,17 +365,47 @@ pub fn handle_collection(action: CollectionAction) {
                 }
             };
 
-            let collection: Collection = match serde_json::from_str(&contents) {
-                Ok(c) => c,
+            // Try auto-detection of format
+            let imported_collections = match auto_import(&contents) {
+                Ok(collections) => collections,
                 Err(e) => {
-                    print_error(&format!("Failed to parse collection: {}", e));
+                    print_error(&format!("Failed to import: {}", e));
                     return;
                 }
             };
 
-            match storage.save_collection(&collection) {
-                Ok(_) => print_success(&format!("Collection '{}' imported", collection.name)),
-                Err(e) => print_error(&format!("Failed to save collection: {}", e)),
+            // Convert imported collections to native format and save
+            let mut success_count = 0;
+            let mut error_count = 0;
+
+            for imported in imported_collections {
+                let collection = convert_imported_to_collection(imported);
+                match storage.save_collection(&collection) {
+                    Ok(_) => {
+                        print_success(&format!("Imported collection '{}'", collection.name));
+                        success_count += 1;
+                    }
+                    Err(e) => {
+                        print_error(&format!(
+                            "Failed to save collection '{}': {}",
+                            collection.name, e
+                        ));
+                        error_count += 1;
+                    }
+                }
+            }
+
+            if success_count > 0 {
+                println!(
+                    "\n{} collection(s) imported successfully",
+                    success_count.to_string().green().bold()
+                );
+            }
+            if error_count > 0 {
+                println!(
+                    "{} collection(s) failed to import",
+                    error_count.to_string().red().bold()
+                );
             }
         }
     }
@@ -664,4 +695,30 @@ pub fn handle_history(action: HistoryAction) {
             Err(e) => print_error(&format!("Failed to clear history: {}", e)),
         },
     }
+}
+
+/// Converts an imported collection to native Collection format
+fn convert_imported_to_collection(imported: ImportedCollection) -> Collection {
+    let mut collection = Collection::new(imported.name);
+    if let Some(desc) = imported.description {
+        collection = collection.with_description(desc);
+    }
+
+    for imported_req in imported.requests {
+        let saved_request = SavedRequest {
+            id: imported_req.id,
+            name: imported_req.name,
+            description: imported_req.description,
+            request: SerializableRequest {
+                method: imported_req.method,
+                url: imported_req.url,
+                headers: imported_req.headers,
+                body: imported_req.body,
+                timeout_seconds: None,
+            },
+        };
+        collection.add_request(saved_request);
+    }
+
+    collection
 }

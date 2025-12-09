@@ -7,10 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Import collections from Insomnia v4 export format
+- Automatic format detection for imports
+- Modular import system with trait-based architecture
+- `saffron-data` crate with `importers` module
+
+### Changed
+- Enhanced `collection import` command to support multiple formats
+- Import now automatically detects Insomnia vs native Saffron format
+- Improved documentation for import functionality
+
 ### Planned
+- Postman format import
+- Request group support (nested folders)
+- Environment import from external tools
 - GraphQL support
 - WebSocket support
-- Import/export (Postman, Insomnia formats)
 - SSL verification control
 - Proxy support
 - GUI implementation

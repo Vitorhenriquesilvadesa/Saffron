@@ -3,7 +3,7 @@ use clap::{Parser, Subcommand};
 #[derive(Parser)]
 #[command(name = "saffron")]
 #[command(about = "A lightweight HTTP client for the command line", long_about = None)]
-#[command(version = "0.1.4")]
+#[command(version = "0.1.5")]
 pub struct Cli {
     #[command(subcommand)]
     pub command: Commands,
