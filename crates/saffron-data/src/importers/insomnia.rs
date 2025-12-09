@@ -95,34 +95,34 @@ impl ImportFormat for InsomniaImporter {
                 _ => continue,
             };
 
-            let id = get_string(&resource_obj, "_id")?;
-            let name = get_string(&resource_obj, "name")?;
-            let parent_id = get_optional_string(&resource_obj, "parentId");
-            let type_str = get_string(&resource_obj, "_type")?;
+            let id = get_string(resource_obj, "_id")?;
+            let name = get_string(resource_obj, "name")?;
+            let parent_id = get_optional_string(resource_obj, "parentId");
+            let type_str = get_string(resource_obj, "_type")?;
 
             let resource_type = match type_str.as_str() {
                 "workspace" => InsomniaResourceType::Workspace {
-                    description: get_optional_string(&resource_obj, "description"),
+                    description: get_optional_string(resource_obj, "description"),
                 },
                 "request_group" => InsomniaResourceType::RequestGroup {
-                    description: get_optional_string(&resource_obj, "description"),
+                    description: get_optional_string(resource_obj, "description"),
                 },
                 "request" => {
-                    let method = get_string(&resource_obj, "method")?;
-                    let url = get_string(&resource_obj, "url")?;
-                    let description = get_optional_string(&resource_obj, "description");
+                    let method = get_string(resource_obj, "method")?;
+                    let url = get_string(resource_obj, "url")?;
+                    let description = get_optional_string(resource_obj, "description");
 
                     // Parse headers
                     let mut headers = Vec::new();
                     if let Some(JsonElement::Array(headers_arr)) = resource_obj.get("headers") {
                         for header_json in headers_arr {
-                            if let JsonElement::Object(header_obj) = header_json {
-                                if let (Some(name), Some(value)) = (
-                                    get_optional_string(&header_obj, "name"),
-                                    get_optional_string(&header_obj, "value"),
-                                ) {
-                                    headers.push((name, value));
-                                }
+                            if let JsonElement::Object(header_obj) = header_json
+                                && let (Some(name), Some(value)) = (
+                                    get_optional_string(header_obj, "name"),
+                                    get_optional_string(header_obj, "value"),
+                                )
+                            {
+                                headers.push((name, value));
                             }
                         }
                     }
@@ -130,7 +130,7 @@ impl ImportFormat for InsomniaImporter {
                     // Parse body
                     let body = if let Some(JsonElement::Object(body_obj)) = resource_obj.get("body")
                     {
-                        get_optional_string(&body_obj, "text")
+                        get_optional_string(body_obj, "text")
                     } else {
                         None
                     };
@@ -187,7 +187,7 @@ impl ImportFormat for InsomniaImporter {
                     let parent = resource.parent_id.clone().unwrap_or_default();
                     requests_by_parent
                         .entry(parent)
-                        .or_insert_with(Vec::new)
+                        .or_default()
                         .push(resource.clone());
                 }
                 InsomniaResourceType::Environment { .. } => {
