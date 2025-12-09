@@ -14,14 +14,29 @@ This guide will help you get started with Saffron, from installation to making y
 ### Prerequisites
 
 - Rust 1.70 or higher (for building from source)
-- Git (for cloning the repository)
 
-### Building from Source
+### Option 1: Install from crates.io (Recommended)
+
+The easiest way to install Saffron:
+
+```bash
+cargo install saffron-http-client
+```
+
+The binary is called `saffron` and will be available in your PATH.
+
+**Verify installation:**
+```bash
+saffron --version
+# Output: saffron 0.1.5
+```
+
+### Option 2: Build from Source
 
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/yourusername/saffron.git
+git clone https://github.com/Vitorhenriquesilvadesa/saffron.git
 cd saffron
 ```
 
@@ -47,12 +62,6 @@ sudo cp target/release/saffron /usr/local/bin/
 
 **Windows:**
 Add the `target/release` directory to your system PATH.
-
-### Using Cargo
-
-```bash
-cargo install saffron
-```
 
 ## Configuration
 

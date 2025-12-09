@@ -26,19 +26,27 @@
 
 ### Installation
 
+**From crates.io:**
+```powershell
+cargo install saffron-http-client
+```
+
+The binary is called `saffron` and will be available in your PATH.
+
+**Verify installation:**
+```powershell
+saffron --version
+# Output: saffron 0.1.5
+```
+
 **From source:**
 ```powershell
-git clone https://github.com/yourusername/saffron.git
+git clone https://github.com/Vitorhenriquesilvadesa/saffron.git
 cd saffron
 cargo build --release
 ```
 
 The binary will be in `target/release/saffron.exe`.
-
-**From crates.io (coming soon):**
-```powershell
-cargo install saffron
-```
 
 ### Your First Request
 
@@ -137,6 +145,7 @@ saffron history clear
 |---------|---------|------|---------|
 | CLI-first | ✅ | ✅ | ❌ |
 | Collections | ✅ | ❌ | ✅ |
+| Import from Tools | ✅ | ❌ | ⚠️ |
 | Environments | ✅ | ❌ | ✅ |
 | Request History | ✅ | ❌ | ✅ |
 | Template Variables | ✅ | ❌ | ✅ |
@@ -155,7 +164,7 @@ Saffron is built as a modular Rust workspace:
 saffron/
 ├── saffron-core     # Domain models (requests, responses, collections)
 ├── saffron-http     # HTTP client implementation (ureq-based)
-├── saffron-data     # Custom JSON parser (no external deps)
+├── saffron-data     # JSON parser + import system (Insomnia, etc.)
 ├── saffron-cli      # Command-line interface (clap-based)
 ├── saffron-ui       # GUI (planned)
 └── saffron-utils    # Shared utilities
@@ -189,7 +198,7 @@ cargo test -p saffron-data
 
 ## 🗺️ Roadmap
 
-### ✅ Completed (v0.1.0)
+### ✅ Completed (v0.1.5)
 - [x] Core HTTP client
 - [x] CLI interface
 - [x] Collections management
@@ -198,16 +207,23 @@ cargo test -p saffron-data
 - [x] Template variable resolution
 - [x] Colored terminal output
 - [x] Comprehensive documentation
+- [x] Import from Insomnia v4
+- [x] Modular import system
+- [x] `--from-collection` feature
 
-### 🚧 In Progress
-- [ ] GUI implementation (saffron-ui)
-- [ ] Import/export (Postman, Insomnia)
+### 🚧 In Progress (v0.2.0)
+- [ ] Postman format import
+- [ ] Request groups/folders support
+- [ ] Environment import from external tools
 - [ ] SSL verification control
 - [ ] Proxy support
 
 ### 📋 Planned
+- [ ] GUI implementation (saffron-ui)
 - [ ] GraphQL support
 - [ ] WebSocket support
+- [ ] Thunder Client import
+- [ ] OpenAPI/Swagger import
 - [ ] Request chaining
 - [ ] Response assertions
 - [ ] Pre/post-request scripts

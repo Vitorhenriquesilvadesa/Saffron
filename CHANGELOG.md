@@ -7,17 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Import collections from Insomnia v4 export format
-- Automatic format detection for imports
-- Modular import system with trait-based architecture
-- `saffron-data` crate with `importers` module
-
-### Changed
-- Enhanced `collection import` command to support multiple formats
-- Import now automatically detects Insomnia vs native Saffron format
-- Improved documentation for import functionality
-
 ### Planned
 - Postman format import
 - Request group support (nested folders)
@@ -27,6 +16,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - SSL verification control
 - Proxy support
 - GUI implementation
+
+## [0.1.5] - 2025-12-09
+
+### Added
+- Import collections from Insomnia v4 export format
+- Automatic format detection for imports
+- Modular import system with trait-based architecture (`ImportFormat` trait)
+- `saffron-data` crate v0.1.1 with `importers` module
+- `ImportedCollection` and `ImportedRequest` intermediary structures
+- `auto_import()` function for format auto-detection
+- Comprehensive import documentation with examples
+- Import limitations and best practices guide
+
+### Changed
+- Enhanced `collection import` command to support multiple formats
+- Import now automatically detects Insomnia vs native Saffron format
+- Updated README with crates.io installation instructions
+- Updated roadmap with completed v0.1.5 features
+- Version display now shows "0.1.5"
+
+### Technical
+- Added `thiserror` dependency to saffron-data for error handling
+- Implemented format-agnostic import pipeline to avoid circular dependencies
+- CLI layer now converts `ImportedCollection` to native `Collection` format
 
 ## [0.1.4] - 2025-12-08
 

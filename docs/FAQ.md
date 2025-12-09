@@ -51,16 +51,22 @@ Saffron is open-source under the MIT License. You can use, modify, and distribut
 
 ### How do I install Saffron?
 
-**From source:**
+**From crates.io (recommended):**
 ```powershell
-git clone https://github.com/yourusername/saffron.git
-cd saffron
-cargo build --release
+cargo install saffron-http-client
 ```
 
-**From crates.io (future):**
+**Verify installation:**
 ```powershell
-cargo install saffron
+saffron --version
+# Output: saffron 0.1.5
+```
+
+**From source:**
+```powershell
+git clone https://github.com/Vitorhenriquesilvadesa/saffron.git
+cd saffron
+cargo build --release
 ```
 
 See [Getting Started](getting-started.md#installation) for details.
@@ -78,16 +84,16 @@ Only if you're building from source. Once built, the binary is standalone and do
 
 ### How do I update Saffron?
 
+**From crates.io:**
+```powershell
+cargo install saffron-http-client --force
+```
+
 **From source:**
 ```powershell
 cd saffron
 git pull
 cargo build --release
-```
-
-**From crates.io (future):**
-```powershell
-cargo install saffron --force
 ```
 
 ## Usage
@@ -251,9 +257,33 @@ Yes! Saffron is perfect for CI/CD:
     if [ $? -ne 0 ]; then exit 1; fi
 ```
 
-### Can I import Postman collections?
+### Can I import collections from other tools?
 
-Not yet, but import/export for Postman and Insomnia formats is planned.
+**Yes! Currently supported:**
+- ✅ **Insomnia v4** - Full support for workspaces and requests
+
+```powershell
+# Export from Insomnia (Application Menu → Import/Export → Export Data)
+# Then import:
+saffron collection import insomnia-export.json
+```
+
+**Coming soon:**
+- 🔜 Postman Collection v2.1
+- 🔜 Thunder Client
+- 🔜 OpenAPI/Swagger specs
+
+See [Examples - Importing Collections](examples.md#importing-collections) for details.
+
+### Can I export my Saffron collections?
+
+Yes! You can export collections to share with your team:
+
+```powershell
+saffron collection export "My API" my-api.json
+```
+
+The exported file uses Saffron's native format and can be imported by other Saffron users.
 
 ## Troubleshooting
 
