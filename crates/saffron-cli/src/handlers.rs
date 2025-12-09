@@ -25,6 +25,7 @@ pub fn handle_send(
     verbose: bool,
     from_collection: Option<String>,
 ) {
+    let x = 10;
     let storage = match Storage::new() {
         Ok(s) => s,
         Err(e) => {
